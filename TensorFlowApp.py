@@ -6,6 +6,7 @@ import numpy as np
 #build model
 model = keras.Sequential([keras.layers.Dense(units = 1, input_shape = [1])])
 
+
 #complie model
 model.compile(optimizer = 'sgd', loss = 'mean_squared_error')
 
