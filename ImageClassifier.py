@@ -6,13 +6,12 @@ import matplotlib.pyplot as plt
 
 #load a predefined dataset
 fashion_mnist = keras.datasets.fashion_mnist
-
 (train_images, train_labels), (test_images, test_labels) = fashion_mnist.load_data()
 
 
-#print(train_labels[0])
-#print(train_images[0])
-
+# Normalize images to values between 0 and 1 
+train_images = train_images / 255.0
+test_images = test_images / 255.0
 
 
 model = keras.Sequential([
@@ -31,20 +30,20 @@ model.compile(optimizer = tf.optimizers.Adam(), loss = 'sparse_categorical_cross
 
 model.fit(train_images, train_labels, epochs = 5)
 
-test_loss = model.evaluate(test_images, test_labels)
-
+test_loss, test_acc = model.evaluate(test_images, test_labels)
+print(f'\nTest Accuracy: {test_acc}')
 
 
 plt.imshow(train_images[0], cmap = 'gray', vmin = 0, vmax = 255)
 plt.show()
 
-print(test_labels[0])
+print(f'Actual label: {test_labels[0]}')
 
 predictions = model.predict(test_images)
 
 print(predictions[0])
 
-print(list(predictions[0]).index(max(predictions[0])))
+print(f'Predicted label: {np.argmax(predictions[0])}')
 
 
 
